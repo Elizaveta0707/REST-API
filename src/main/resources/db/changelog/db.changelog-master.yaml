@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: root
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id_users
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+              - column:
+                  name: fio
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: adress
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: root
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id_product
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: int
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 3
+      author: root
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id_order
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+              - column:
+                  name: date
+                  type: Date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_users
+                  type: int
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 4
+      author: root
+      changes:
+        - createTable:
+            tableName: order_product
+            columns:
+              - column:
+                  name: id
+                  type: int
+              - column:
+                  name: id_pro
+                  type: int
+  - changeSet:
+      id: 5
+      author: root
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_pro
+            baseTableName: order_product
+            constraintName: fk_order1
+            referencedColumnNames: id_product
+            referencedTableName: product
+            onDelete: CASCADE
+  - changeSet:
+      id: 6
+      author: root
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id
+            baseTableName: order_product
+            constraintName: fk_order2
+            referencedColumnNames: id_order
+            referencedTableName: orders
+  - changeSet:
+      id: 7
+      author: root
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_users
+            baseTableName: orders
+            constraintName: fk_order3
+            referencedColumnNames: id_users
+            referencedTableName: user
