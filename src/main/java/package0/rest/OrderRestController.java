@@ -72,7 +72,7 @@ public class OrderRestController
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         }
-        //получение всех клиентов
+        
         @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
         public  ResponseEntity<List<Order>> getAllOrders()
         {
