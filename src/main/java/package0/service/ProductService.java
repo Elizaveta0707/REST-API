@@ -1,6 +1,6 @@
 package package0.service;
 
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import package0.model.Product;
@@ -11,7 +11,7 @@ import package0.repository.ProductRepository;
 import java.util.Arrays;
 import java.util.List;
 @Service
-@Slf4j
+
 public class ProductService implements  IProductService
 {
     @Autowired
