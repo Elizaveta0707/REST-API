@@ -59,7 +59,7 @@ public class ClientRestController
         this.clientService.save(user);
         return new ResponseEntity<>(user,heards,HttpStatus.OK);
     }
-    //Удаление по ID
+    
     @RequestMapping(value = "{id_client}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Client> deleteUsers(@PathVariable("id_client") int id)
     {
@@ -71,7 +71,7 @@ public class ClientRestController
                         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
-    //получение всех клиентов
+    
     @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public  ResponseEntity<List<Client>> getAllUsers()
     {
@@ -84,7 +84,7 @@ public class ClientRestController
 
     }
 
-    //запрос  с возможностью пагинтации  и с возможностью сортировки
+    
     @GetMapping("/clients")
     public ResponseEntity<List<Client>> getAllSort
     (
