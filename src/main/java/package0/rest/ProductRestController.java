@@ -55,7 +55,7 @@ public class ProductRestController
             this.productService.save(product);
             return new ResponseEntity<>(product,heards,HttpStatus.OK);
         }
-        //Удаление по ID
+        
         @RequestMapping(value = "{ID}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
         public ResponseEntity<Product> deleteOrders(@PathVariable("ID") int id)
         {
@@ -67,7 +67,7 @@ public class ProductRestController
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         }
-        //получение всех клиентов
+        
 
         @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
         public  ResponseEntity<List<Product>> getAllOrders()
