@@ -1,6 +1,6 @@
 package package0.service;
 
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,7 +12,7 @@ import package0.model.Order;
 import java.util.Arrays;
 import java.util.List;
 @Service
-@Slf4j
+
 public class OrderService implements IOrderService
 {
     @Autowired
