@@ -18,8 +18,8 @@ public class ProductRestController
 {
         @Autowired
         private ProductService productService;
-        @RequestMapping(value = "{id_product}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        public ResponseEntity<Product> getOrders(@PathVariable("id_product") int id)
+        @RequestMapping(value = "{ID}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        public ResponseEntity<Product> getOrders(@PathVariable("ID") int id)
 
         {
             if(id == 0)
@@ -56,8 +56,8 @@ public class ProductRestController
             return new ResponseEntity<>(product,heards,HttpStatus.OK);
         }
         //Удаление по ID
-        @RequestMapping(value = "{id_product}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        public ResponseEntity<Product> deleteOrders(@PathVariable("id_product") int id)
+        @RequestMapping(value = "{ID}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        public ResponseEntity<Product> deleteOrders(@PathVariable("ID") int id)
         {
             Product product =this.productService.getById(id);
             if(product==null){
@@ -68,6 +68,7 @@ public class ProductRestController
 
         }
         //получение всех клиентов
+
         @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
         public  ResponseEntity<List<Product>> getAllOrders()
         {
@@ -79,4 +80,14 @@ public class ProductRestController
             return  new ResponseEntity<>(products,HttpStatus.OK);
 
         }
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllSort
+            (
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "5") int size,
+                    @RequestParam(defaultValue = "ID") String[] sort)
+    {
+        List<Product> products = productService.getSortUsers(page, size, sort);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }

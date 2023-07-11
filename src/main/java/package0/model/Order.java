@@ -14,8 +14,8 @@ import java.util.*;
 public class Order implements Serializable
 {
     @Id
-    @Column(name = "id_order",nullable = false,insertable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID",nullable = false,insertable = false, updatable = false)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_order;
     @Column(name = "date", nullable = false)
     private Date date;
@@ -29,14 +29,14 @@ public class Order implements Serializable
     }
     public Order(){}
     @ManyToOne
-    @JoinColumn(name = "id_users")
-    private User user;
+    @JoinColumn(name = "id_client")
+    private Client client;
     @ManyToMany
     @JoinTable
             (
                     name = "order_product",
-                    joinColumns = @JoinColumn(name = "id",referencedColumnName = "id_order"),
-                    inverseJoinColumns = @JoinColumn(name = "id_pro",referencedColumnName = "id_product")
+                    joinColumns = @JoinColumn(name = "id",referencedColumnName = "ID"),
+                    inverseJoinColumns = @JoinColumn(name = "id_pro",referencedColumnName = "ID")
             )
     private List<Product> productList;
 

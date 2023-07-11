@@ -3,45 +3,45 @@ package package0.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import package0.model.User;
+import package0.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import package0.repository.UserRepository;
+import package0.repository.ClientRepository;
 
 import java.util.Arrays;
 import java.util.List;
 @Service
 @Slf4j
-public class UserService implements IUserSersice
+public class ClientService implements IClientService
 {
     @Autowired
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
 
-    public UserService(UserRepository userRepository)
+    public ClientService(ClientRepository userRepository)
     {
-        this.userRepository = userRepository;
+        this.clientRepository = userRepository;
     }
     @Override
-    public User getById(int id)
+    public Client getById(int id)
     {
-        return userRepository.findById(id).get();
+        return clientRepository.findById(id).get();
     }
 
-    public  void save (User user)
+    public  void save (Client user)
     {
-        userRepository.save(user);
+        clientRepository.save(user);
     }
     public  void delete(int id){
-        userRepository.deleteById(id);
+        clientRepository.deleteById(id);
     }
     @Override
-    public List<User> getAll()
+    public List<Client> getAll()
     {
-        return userRepository.findAll();
+        return clientRepository.findAll();
     }
-    public List<User> getSortUsers(int page, int size, String[] sort) {
+    public List<Client> getSortUsers(int page, int size, String[] sort) {
 
-        return userRepository.findAll(PageRequest.of(page, size, getSortCriteria(sort))).getContent();
+        return clientRepository.findAll(PageRequest.of(page, size, getSortCriteria(sort))).getContent();
     }
 
     public Sort getSortCriteria(String[] sort)

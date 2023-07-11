@@ -1,6 +1,6 @@
 package package0.rest;
 
-import package0.model.User;
+import package0.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +22,8 @@ public class OrderRestController
 {
         @Autowired
         private OrderService orderService;
-        @RequestMapping(value = "{id_order}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        public ResponseEntity<Order> getOrders(@PathVariable("id_order") int id)
+        @RequestMapping(value = "{ID}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        public ResponseEntity<Order> getOrders(@PathVariable("ID") int id)
 
         {
             if(id == 0)
@@ -61,8 +61,8 @@ public class OrderRestController
             return new ResponseEntity<>(order,heards,HttpStatus.OK);
         }
         //Удаление по ID
-        @RequestMapping(value = "{id_order}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        public ResponseEntity<User> deleteOrders(@PathVariable("id_order") int id)
+        @RequestMapping(value = "{ID}",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        public ResponseEntity<Client> deleteOrders(@PathVariable("ID") int id)
         {
             Order order =this.orderService.getById(id);
             if(order==null){
@@ -84,4 +84,14 @@ public class OrderRestController
             return  new ResponseEntity<>(orders,HttpStatus.OK);
 
         }
+    @GetMapping("/orders")
+    public ResponseEntity<List<Order>> getAllSort
+            (
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "5") int size,
+                    @RequestParam(defaultValue = "ID") String[] sort)
+    {
+        List<Order> orderList = orderService.getSortUsers(page, size, sort);
+        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    }
 }

@@ -4,10 +4,10 @@ databaseChangeLog:
       author: root
       changes:
         - createTable:
-            tableName: user
+            tableName: client
             columns:
               - column:
-                  name: id_users
+                  name: id_client
                   type: int
                   constraints:
                     primaryKey: true
@@ -37,7 +37,7 @@ databaseChangeLog:
             tableName: product
             columns:
               - column:
-                  name: id_product
+                  name: ID
                   type: int
                   constraints:
                     primaryKey: true
@@ -61,7 +61,7 @@ databaseChangeLog:
             tableName: orders
             columns:
               - column:
-                  name: id_order
+                  name: ID
                   type: int
                   constraints:
                     primaryKey: true
@@ -78,7 +78,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: id_users
+                  name: id_client
                   type: int
                   constraints:
                     nullable: false
@@ -103,7 +103,7 @@ databaseChangeLog:
             baseColumnNames: id_pro
             baseTableName: order_product
             constraintName: fk_order1
-            referencedColumnNames: id_product
+            referencedColumnNames: ID
             referencedTableName: product
             onDelete: CASCADE
   - changeSet:
@@ -114,15 +114,15 @@ databaseChangeLog:
             baseColumnNames: id
             baseTableName: order_product
             constraintName: fk_order2
-            referencedColumnNames: id_order
+            referencedColumnNames: ID
             referencedTableName: orders
   - changeSet:
       id: 7
       author: root
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: id_users
+            baseColumnNames: id_client
             baseTableName: orders
             constraintName: fk_order3
-            referencedColumnNames: id_users
-            referencedTableName: user
+            referencedColumnNames: id_client
+            referencedTableName: client

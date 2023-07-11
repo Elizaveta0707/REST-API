@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "client")
 
-public class User implements  Serializable
+public class Client implements  Serializable
 {
  @Id
- @Column(name = "id_users")
+ @Column(name = "id_client")
  //@GeneratedValue(strategy = GenerationType.IDENTITY)
- private int id_users;
+ private int id_client;
  @Column(name = "fio")
  private String fio;
  @Column(name = "number")
@@ -23,22 +23,22 @@ public class User implements  Serializable
  private String adress;
 
 
- @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+ @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, orphanRemoval = true)
  private List<Order> orders = new ArrayList<>();
- public  User(int id_users,String fio,long number,String adress)
+ public Client(int id_client, String fio, long number, String adress)
  {
-  this.id_users=id_users;
+  this.id_client =id_client;
   this.fio=fio;
   this.number=number;
   this.adress=adress;
  }
 
- public  User(){}
- public  void setId_users(int id_users)
+ public Client(){}
+ public  void setId_client(int id_client)
  {
-  this.id_users = id_users;
+  this.id_client = id_client;
  }
- public  int getId_users(){return id_users;}
+ public  int getId_client(){return id_client;}
  public  void setFio(String fio)
  {
   this.fio=fio;
@@ -60,8 +60,8 @@ public class User implements  Serializable
  @Override
  public String  toString()
  {
-  return "User{"
-          +"id="+id_users+
+  return "Client{"
+          +"id="+ id_client +
           ",fio"+fio+",number"+
           number+",adress"+
           adress+'}';

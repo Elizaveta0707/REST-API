@@ -2,7 +2,6 @@ package package0.service;
 
 import org.springframework.data.domain.Sort;
 import package0.model.Order;
-import package0.model.User;
 
 import java.util.List;
 

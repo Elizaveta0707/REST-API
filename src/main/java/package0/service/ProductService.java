@@ -3,11 +3,9 @@ package package0.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import package0.model.Order;
 import package0.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import package0.model.User;
 import package0.repository.ProductRepository;
 
 import java.util.Arrays;
