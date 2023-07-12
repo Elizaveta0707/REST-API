@@ -1,16 +1,20 @@
-package package0.service;
+package com.example.service;
 
+import com.example.model.Order;
 import org.springframework.data.domain.Sort;
-import package0.model.Order;
 
 import java.util.List;
 
-public interface IOrderService
-{
-    Order getById(int id);
+public interface IOrderService {
+    Order getById(long id);
+
     void save(Order order);
-    void delete(int id);
+
+    void delete(long id);
+
     List<Order> getAll();
+
     List<Order> getSortUsers(int page, int size, String[] sort);
+
     Sort getSortCriteria(String[] sort);
 }

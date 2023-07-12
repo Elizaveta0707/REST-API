@@ -1,19 +1,17 @@
-package package0.service;
+package com.example.service;
 
-
+import com.example.model.Product;
+import com.example.repository.ProductRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import package0.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import package0.repository.ProductRepository;
 
 import java.util.Arrays;
 import java.util.List;
-@Service
 
-public class ProductService implements  IProductService
-{
+@Service
+public class ProductService implements IProductService {
     @Autowired
     private final ProductRepository productRepository;
 
@@ -26,26 +24,24 @@ public class ProductService implements  IProductService
     }
 
     @Override
-    public Product getById(int id)
-    {
+    public Product getById(long id) {
         return productRepository.findById(id).get();
     }
 
     @Override
-    public void save(Product prod)
-    {
+    public void save(Product prod) {
         productRepository.save(prod);
     }
 
-    public  void delete(int id){
+    public void delete(long id) {
         productRepository.deleteById(id);
     }
+
     public List<Product> getSortUsers(int page, int size, String[] sort) {
         return productRepository.findAll(PageRequest.of(page, size, getSortCriteria(sort))).getContent();
     }
 
-    public Sort getSortCriteria(String[] sort)
-    {
+    public Sort getSortCriteria(String[] sort) {
         String[] sortProperties = new String[sort.length];
         Sort.Direction[] sortDirections = new Sort.Direction[sort.length];
 

@@ -1,22 +1,20 @@
-package package0.service;
+package com.example.service;
 
-
+import com.example.model.Order;
+import com.example.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import package0.repository.OrderRepository;
-
-import package0.model.Order;
 
 import java.util.Arrays;
 import java.util.List;
-@Service
 
-public class OrderService implements IOrderService
-{
+@Service
+public class OrderService implements IOrderService {
     @Autowired
     private final OrderRepository orderRepository;
+
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
@@ -26,23 +24,24 @@ public class OrderService implements IOrderService
     }
 
     @Override
-    public Order getById(int id) {
+    public Order getById(long id) {
         return orderRepository.findById(id).get();
     }
-    public  void save (Order id)
-    {
+
+    public void save(Order id) {
         orderRepository.save(id);
     }
-    public  void delete(int id){
+
+    public void delete(long id) {
         orderRepository.deleteById(id);
     }
+
     public List<Order> getSortUsers(int page, int size, String[] sort) {
 
         return orderRepository.findAll(PageRequest.of(page, size, getSortCriteria(sort))).getContent();
     }
 
-    public Sort getSortCriteria(String[] sort)
-    {
+    public Sort getSortCriteria(String[] sort) {
         String[] sortProperties = new String[sort.length];
         Sort.Direction[] sortDirections = new Sort.Direction[sort.length];
 
