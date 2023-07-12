@@ -20,7 +20,8 @@ public class Order implements Serializable {
     @Column(name = "price", nullable = false)
     private int price;
 
-    public Order(Date date, int price) {
+    public Order(long id, Date date, int price) {
+        this.id = id;
         this.date = date;
         this.price = price;
     }

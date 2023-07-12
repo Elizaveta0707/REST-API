@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.dto.ClientDto;
+import com.example.dto.ClientMapper;
 import com.example.model.Client;
 import com.example.repository.ClientRepository;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService implements IClientService {
@@ -20,12 +24,20 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Client getById(long id) {
-        return clientRepository.findById(id).get();
+    public ClientDto getById(long id) {
+        Optional<Client> optionalUser = clientRepository.findById(id);
+        Client user = optionalUser.get();
+        return ClientMapper.mapToUserDto(user);
     }
 
-    public void save(Client user) {
-        clientRepository.save(user);
+    public ClientDto create(ClientDto userDto) {
+        Client users = ClientMapper.mapToUser(userDto);
+
+        Client savedUser = clientRepository.save(users);
+
+        ClientDto savedUserDto = ClientMapper.mapToUserDto(savedUser);
+
+        return savedUserDto;
     }
 
     public void delete(long id) {
@@ -33,8 +45,10 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public List<Client> getAll() {
-        return clientRepository.findAll();
+    public List<ClientDto> getAll() {
+        List<Client> users = clientRepository.findAll();
+        return users.stream().map(ClientMapper::mapToUserDto)
+                .collect(Collectors.toList());
     }
 
     public List<Client> getSortUsers(int page, int size, String[] sort) {

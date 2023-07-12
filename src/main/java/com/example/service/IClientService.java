@@ -1,20 +1,22 @@
 package com.example.service;
 
+import com.example.dto.ClientDto;
 import com.example.model.Client;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
 public interface IClientService {
-    Client getById(long id);
+    ClientDto getById(long id);
 
-    void save(Client user);
+    ClientDto create(ClientDto userDto);
 
     void delete(long id);
 
-    List<Client> getAll();
 
     List<Client> getSortUsers(int page, int size, String[] sort);
 
     Sort getSortCriteria(String[] sort);
+
+    List<ClientDto> getAll();
 }

@@ -1,5 +1,6 @@
 package com.example.rest;
 
+import com.example.dto.ProductsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,11 @@ public class ProductRestController {
     private ProductService productService;
 
     @RequestMapping(value = "{ID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> getOrders(@PathVariable("ID") Long id) {
+    public ResponseEntity<ProductsDto> getOrders(@PathVariable("ID") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Product product = this.productService.getById(id);
+        ProductsDto product = this.productService.getById(id);
         if (id == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -32,28 +33,28 @@ public class ProductRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid Product product) {
+    public ResponseEntity<ProductsDto> createProduct(@RequestBody @Valid ProductsDto product) {
         HttpHeaders headers = new HttpHeaders();
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.productService.save(product);
+        this.productService.create(product);
         return new ResponseEntity<>(product, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> updateOrders(@RequestBody @Valid Product product, UriComponentsBuilder builder) {
+    public ResponseEntity<ProductsDto> updateOrders(@RequestBody @Valid ProductsDto product, UriComponentsBuilder builder) {
         HttpHeaders heards = new HttpHeaders();
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.productService.save(product);
+        this.productService.create(product);
         return new ResponseEntity<>(product, heards, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{ID}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> deleteOrders(@PathVariable("ID") Long id) {
-        Product product = this.productService.getById(id);
+    public ResponseEntity<ProductsDto> deleteOrders(@PathVariable("ID") Long id) {
+        ProductsDto product = this.productService.getById(id);
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,8 +64,8 @@ public class ProductRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Product>> getAllOrders() {
-        List<Product> products = this.productService.getAll();
+    public ResponseEntity<List<ProductsDto>> getAllOrders() {
+        List<ProductsDto> products = this.productService.getAll();
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

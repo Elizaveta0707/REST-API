@@ -1,7 +1,13 @@
 package com.example.service;
 
+import com.example.dto.ClientDto;
+import com.example.dto.ClientMapper;
+import com.example.dto.OrdersDto;
+import com.example.dto.OrdersMapper;
+import com.example.model.Client;
 import com.example.model.Order;
 import com.example.repository.OrderRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -9,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IOrderService {
@@ -19,17 +27,28 @@ public class OrderService implements IOrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> getAll() {
-        return orderRepository.findAll();
+    @Override
+    public List<OrdersDto> getAll() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(OrdersMapper::mapToOrderDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Order getById(long id) {
-        return orderRepository.findById(id).get();
+    public OrdersDto getById(long id) {
+        Optional<Order> optionalUser = orderRepository.findById(id);
+        Order user = optionalUser.get();
+        return OrdersMapper.mapToOrderDto(user);
     }
 
-    public void save(Order id) {
-        orderRepository.save(id);
+    public OrdersDto create(OrdersDto orders) {
+        Order users = OrdersMapper.mapToOrder(orders);
+
+        Order savedOrder = orderRepository.save(users);
+
+        OrdersDto ordersDto = OrdersMapper.mapToOrderDto(savedOrder);
+
+        return ordersDto;
     }
 
     public void delete(long id) {

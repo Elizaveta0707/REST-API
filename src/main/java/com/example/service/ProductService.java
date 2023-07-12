@@ -1,5 +1,8 @@
 package com.example.service;
 
+import com.example.dto.*;
+import com.example.model.Client;
+import com.example.model.Order;
 import com.example.model.Product;
 import com.example.repository.ProductRepository;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -19,18 +24,29 @@ public class ProductService implements IProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductsDto> getAll() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(ProductMapper::mapToProductDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Product getById(long id) {
-        return productRepository.findById(id).get();
+    public ProductsDto getById(long id) {
+        Optional<Product> optionalUser = productRepository.findById(id);
+        Product product = optionalUser.get();
+        return ProductMapper.mapToProductDto(product);
     }
 
+
     @Override
-    public void save(Product prod) {
-        productRepository.save(prod);
+    public ProductsDto create(ProductsDto prod) {
+        Product mapToProduct = ProductMapper.mapToProduct(prod);
+
+        Product savedOrder = productRepository.save(mapToProduct);
+
+        ProductsDto productsDto = ProductMapper.mapToProductDto(savedOrder);
+
+        return productsDto;
     }
 
     public void delete(long id) {
